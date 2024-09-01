@@ -14,7 +14,7 @@
 # limitations under the License.
 
 # Run with `dart run ffigen --config ffigen.yaml`.
-name: FfigenAppBindings
+name: FlutterLibRawBindings
 description: |
   Bindings for `src/libraw.h`.
 
