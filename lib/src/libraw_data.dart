@@ -24,6 +24,6 @@ class LibRawData with _$LibRawData {
     required IData idata,
   }) = _LibRawData;
 
-  factory LibRawData.fromJson(Map<String, Object?> json)
-      => _$LibRawDataFromJson(json);
+  factory LibRawData.fromJson(Map<String, Object?> json) =>
+      _$LibRawDataFromJson(json);
 }

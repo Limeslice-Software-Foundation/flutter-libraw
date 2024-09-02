@@ -55,8 +55,9 @@ class RawFile implements Finalizable {
   static Future<RawFile> open(File rawFile) async {
     Pointer<libraw_data_t> ptr = _bindings.libraw_init(0);
     RawFile file = RawFile._(ptr, rawFile);
-    int result = _bindings.libraw_open_file(ptr, rawFile.absolute.path.toNativeUtf8().cast());
-    if(result != 0) {
+    int result = _bindings.libraw_open_file(
+        ptr, rawFile.absolute.path.toNativeUtf8().cast());
+    if (result != 0) {
       LibRawException('Failed to open file $result');
     }
     await file._loadAllData();

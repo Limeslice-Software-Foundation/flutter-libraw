@@ -18,21 +18,19 @@ part 'idata.g.dart';
 
 @freezed
 class IData with _$IData {
-  const factory IData({
-    required String make,
-    required String model,
-    required String normalizedMake,
-    required String normalizedModel,
-    required int makerIndex,
-    required String software,
-    required int rawCount,
-    required int isFoveon,
-    required int dngVersion,
-    required int colors,
-    required int filters,
-    required String cdesc
-  }) = _IData;
+  const factory IData(
+      {required String make,
+      required String model,
+      required String normalizedMake,
+      required String normalizedModel,
+      required int makerIndex,
+      required String software,
+      required int rawCount,
+      required int isFoveon,
+      required int dngVersion,
+      required int colors,
+      required int filters,
+      required String cdesc}) = _IData;
 
-  factory IData.fromJson(Map<String, Object?> json)
-      => _$IDataFromJson(json);
+  factory IData.fromJson(Map<String, Object?> json) => _$IDataFromJson(json);
 }

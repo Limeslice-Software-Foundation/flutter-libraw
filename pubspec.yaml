@@ -16,7 +16,7 @@
 name: flutter_libraw
 description: >-
   Flutter_libraw is a Dart/Flutter package that provides
-version: 0.0.7
+version: 0.0.1
 repository: https://github.com/Limeslice-Software-Foundation/flutter-libraw
 
 environment:
