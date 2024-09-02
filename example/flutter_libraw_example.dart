@@ -14,7 +14,14 @@
 // limitations under the License.
 
 import 'package:flutter_libraw/flutter_libraw.dart';
+import 'dart:io';
 
-void main() {
-
+void main() async {
+  libraryPath = './bin';
+  File file = File('test/samples/RAW_CANON_5D_ARGB.CR2');
+  RawFile rawFile = await RawFile.open(file);
+  print(rawFile.data.idata.make);
+  print(rawFile.data.idata.model);
+  print(rawFile.data.idata.rawCount);
+  print(rawFile.data.idata.colors);
 }

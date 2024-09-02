@@ -14,4 +14,8 @@
 // limitations under the License.
 library;
 
-// export 'src/flutter_libraw_base.dart';
+export 'libraw_bindings_generated.dart';
+export 'src/idata.dart';
+export 'src/libraw_data.dart';
+export 'src/libraw_exception.dart';
+export 'raw_file.dart';
