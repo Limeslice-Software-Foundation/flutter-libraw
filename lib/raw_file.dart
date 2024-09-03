@@ -28,7 +28,7 @@ String libraryPath = 'bin';
 final DynamicLibrary _dylib = () {
   if (Platform.isMacOS || Platform.isIOS) {
     return DynamicLibrary.open(
-        '$libraryPath${Platform.pathSeparator}$_libName.a');
+        '$libraryPath${Platform.pathSeparator}$_libName.dylib');
   }
   if (Platform.isAndroid || Platform.isLinux) {
     return DynamicLibrary.open(
