@@ -13,15 +13,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:ffi';
+import 'package:ffi/ffi.dart';
 import 'package:flutter_libraw/flutter_libraw.dart';
 import 'dart:io';
 
 void main() async {
-  libraryPath = './bin';
-  File file = File('test/samples/RAW_CANON_5D_ARGB.CR2');
-  RawFile rawFile = await RawFile.open(file);
-  print(rawFile.data.idata.make);
-  print(rawFile.data.idata.model);
-  print(rawFile.data.idata.rawCount);
-  print(rawFile.data.idata.colors);
+  File rawFile = File('test/samples/RAW_CANON_5D_ARGB.CR2');
+  File thumbnailFile = File('thumbnail.jpg');
+  String fileName = determineLibraryName();
+  File libFile = File('libraw/$fileName');
+  bool loaded = await loadLibRaw(libFile);
+
+  if (loaded) {
+    Pointer<libraw_data_t> ptr = flutterLibRawBindings.libraw_init(0);
+    int result = flutterLibRawBindings.libraw_open_file(
+        ptr, rawFile.absolute.path.toNativeUtf8().cast());
+    if (result != 0) {
+      print('Failed to open raw file: $rawFile');
+    } else {
+      print(arrayToString(ptr.ref.idata.make));
+      print(arrayToString(ptr.ref.idata.model));
+
+      flutterLibRawBindings.libraw_unpack_thumb(ptr);
+      await thumbnailFile.writeAsBytes(pointerToUint8List(
+          ptr.ref.thumbnail.thumb, ptr.ref.thumbnail.tlength));
+
+      flutterLibRawBindings.libraw_close(ptr);
+    }
+  } else {
+    print('Failed to load libraw library');
+  }
 }
