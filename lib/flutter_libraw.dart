@@ -12,10 +12,11 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+/// The Flutter LibRaw package aims to provide the ability to read camera RAW
+/// files to Dart/Flutter applications.
 library;
 
-export 'libraw_bindings_generated.dart';
-export 'src/idata.dart';
-export 'src/libraw_data.dart';
-export 'src/libraw_exception.dart';
-export 'raw_file.dart';
+export 'src/libraw_bindings_generated.dart';
+export 'src/libraw_util.dart';
+export 'src/libraw_loader.dart';
