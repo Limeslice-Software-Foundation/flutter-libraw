@@ -14,6 +14,7 @@ Note that this project is still in its early stages and so may not yet provide c
   - [Getting Started](#getting-started)
     - [Installation](#installation)
     - [Import Package](#import-package)
+    - [Basic Usage](#basic-usage)
   - [Usage](#usage)
   - [Roadmap](#roadmap)
   - [Contributing](#contributing)
@@ -56,6 +57,55 @@ Import the library in your code.
 
 ```Dart
 import 'package:flutter_libraw/flutter_libraw.dart';
+```
+
+### Basic Usage
+
+1. Load the library.
+```Dart
+String fileName = determineLibraryName();
+File libFile = File('libraw/$fileName');
+bool loaded = await loadLibRaw(libFile);
+```
+
+2. Initialise libraw.
+```Dart
+Pointer<libraw_data_t> ptr = flutterLibRawBindings.libraw_init(0);
+```
+
+3. Open RAW file
+```Dart
+File rawFile = File('test/samples/RAW_CANON_5D_ARGB.CR2');
+int result = flutterLibRawBindings.libraw_open_file(
+        ptr, rawFile.absolute.path.toNativeUtf8().cast());
+```
+
+4. Check result
+```Dart
+if (result != 0) {
+  print('Failed to open raw file: $rawFile');
+} else {
+  // Access image data here...
+}
+```
+
+5. Access image meta data
+```Dart
+print(arrayToString(ptr.ref.idata.make));
+print(arrayToString(ptr.ref.idata.model));
+```
+
+6. Unpack the thumbnail image
+```Dart
+File thumbnailFile = File('thumbnail.jpg');
+flutterLibRawBindings.libraw_unpack_thumb(ptr);
+await thumbnailFile.writeAsBytes(pointerToUint8List(
+    ptr.ref.thumbnail.thumb, ptr.ref.thumbnail.tlength));
+```
+
+7. Finally close the pointer - this releases resources and frees memory, failure to do this will result in memory leaks in your application.
+```Dart
+flutterLibRawBindings.libraw_close(ptr);
 ```
 
 ## Usage
